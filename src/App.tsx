@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, MouseEvent, useState } from "react";
+import Square from "./Square";
+import "./App.css";
 
-function App() {
+const App: React.FC = () => {
+  let [info, setInfo] = useState({});
+
+  let getRandom = (e: React.MouseEvent): any => {
+    let locationX = Math.round(Math.random() * 1000);
+    let locationY = Math.round(Math.random() * 500);
+    let size = Math.round(Math.random() * 80) + 20 + "px";
+    let background =
+      "#" +
+      (Math.random().toString(16) + "000000").substring(2, 8).toUpperCase();
+    setInfo({
+      position: "fixed",
+      top: locationY,
+      left: locationX,
+      background: background,
+      height: size,
+      width: size,
+    });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button className="start" onClick={getRandom}>
+        Click me and i give you a square
+      </button>
+      <Square info={info} />
     </div>
   );
-}
+};
 
 export default App;
